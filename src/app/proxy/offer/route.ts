@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
         const data = await apiResponse.json(); // Use .json() instead of .text() if the response is JSON
 
         // Modify the 'credential_issuer' field
-        const baseUrl = `${req.headers.get('x-forwarded-proto') || 'http'}://${req.headers.get('host')}`;
+        const baseUrl = process.env.BASE_URL || `${req.headers.get('x-forwarded-proto') || 'http'}://${req.headers.get('host')}`;
         data.credential_issuer = baseUrl; // New issuer URL
 
         // Convert the modified object back to a JSON string

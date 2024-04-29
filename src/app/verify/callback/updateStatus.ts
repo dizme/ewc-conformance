@@ -1,6 +1,5 @@
 export async function updateStatus(id: String, status: String) {
     const baseUrl = process.env.BASE_URL || ""
-    console.warn(baseUrl)
     fetch(`${baseUrl}/verify/updateStatus`, {
         method: 'POST',
         headers: {

@@ -11,7 +11,6 @@ import {VerificationState} from "@/types/VerificationState";
 async function createSessionData(sessionId: string, verificationUri: string) {
 const params = new URLSearchParams(verificationUri.split('?')[1]);
 const state = params.get('state');// Extract the part of the URL after 'credential_offer_uri='
-console.debug(state)
     await prisma.verificationSessionData.create(
         {
             data: {
@@ -56,7 +55,7 @@ export async function GET(req: NextRequest) {
         }
 
         try {
-            const baseUrl = `${req.headers.get('x-forwarded-proto') || 'http'}://${req.headers.get('host')}`;
+            const baseUrl = process.env.BASE_URL || `${req.headers.get('x-forwarded-proto') || 'http'}://${req.headers.get('host')}`;
             const verificationUri = await startVerify(credentialType, baseUrl)
             await createSessionData(sessionId, verificationUri.data)
             const qrBase64 = await QRCode.toDataURL(verificationUri.data)

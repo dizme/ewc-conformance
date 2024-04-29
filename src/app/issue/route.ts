@@ -108,7 +108,7 @@ export async function GET(req: NextRequest) {
         try {
             const offerUrl = await getOfferUrl(credential)
             await createSessionData(sessionId, offerUrl.data)
-            const baseUrl = `${req.headers.get('x-forwarded-proto') || 'http'}://${req.headers.get('host')}`;
+            const baseUrl = process.env.BASE_URL || `${req.headers.get('x-forwarded-proto') || 'http'}://${req.headers.get('host')}`;
             const proxiedUri = changeCredentialOfferEndpoint(baseUrl, offerUrl.data)
             const qrBase64 = await QRCode.toDataURL(proxiedUri)
             const jsonBody = JSON.stringify({

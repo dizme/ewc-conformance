@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     }
 
     const wellKnownData = await response.json();
-    const baseUrl = `${req.headers.get('x-forwarded-proto') || 'http'}://${req.headers.get('host')}`;
+    const baseUrl = process.env.BASE_URL || `${req.headers.get('x-forwarded-proto') || 'http'}://${req.headers.get('host')}`;
 
     wellKnownData.issuer = baseUrl
     wellKnownData.credential_issuer = baseUrl+"/.well-known/openid-credential-issuer"
