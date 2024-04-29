@@ -1,3 +1,8 @@
+# EWC Conformance
+
+Conformant Issuer and Verifier API according to [EWC RFC100: Interoperability Profile Towards ITB - v1.0
+](https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc100-interoperability-profile-towards-itb-v1.0.md)
+
 ## Getting Started
 Modify the `.env` file to reflect your configuration
 
