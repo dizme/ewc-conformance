@@ -2,6 +2,38 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
 import {IssuanceState} from "@/types/IssuanceState";
 
+/**
+ * @swagger
+ * /api/proxy/offer:
+ *   get:
+ *     summary: Fetches credential offer information by ID and updates session status
+ *     description: Proxies a request to an external API to fetch credential offer information, updates the session state to 'Read', and returns the modified credential offer data.
+ *     parameters:
+ *       - in: query
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The unique identifier for the issuance session.
+ *     responses:
+ *       200:
+ *         description: Credential offer data fetched and session updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               description: Credential offer data including updated issuer information.
+ *       500:
+ *         description: Error occurred while trying to proxy the request or update session data.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Failed to proxy request
+ */
 
 export async function GET(req: NextRequest) {
     const url = req.nextUrl;

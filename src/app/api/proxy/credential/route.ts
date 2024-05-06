@@ -6,6 +6,39 @@ const httpsAgent = new https.Agent({
   rejectUnauthorized: false // WARNING: Only use this if you understand the security implications!
 });
 
+/**
+ * @swagger
+ * /api/proxy/credential:
+ *   post:
+ *     summary: Proxies a credential request to a specified credential service
+ *     description: Forwards the incoming request to the credential endpoint and returns the response from that service.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             description: JSON payload for credential issuance or verification.
+ *     responses:
+ *       200:
+ *         description: Successfully received response from the credential service.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               description: The response body returned from the credential service.
+ *       500:
+ *         description: Error occurred while trying to proxy the request.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Failed to proxy request
+ */
+
 export async function POST(req: NextRequest) {
   const credentialEndpoint = `${process.env.ISSUER_URL}/credential`;
 

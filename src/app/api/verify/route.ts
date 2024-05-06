@@ -23,6 +23,71 @@ const state = params.get('state');// Extract the part of the URL after 'credenti
     )
 }
 
+/**
+ * @swagger
+ * /api/verify:
+ *   get:
+ *     summary: Initiates a verification process for a given session ID and credential type
+ *     description: Starts verification, returns a QR code and verification URI if successful, otherwise returns an error.
+ *     tags:
+ *       - Verification
+ *     parameters:
+ *       - in: query
+ *         name: sessionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The session ID to check for existing verification.
+ *       - in: query
+ *         name: credentialType
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The type of credential to verify.
+ *     responses:
+ *       200:
+ *         description: Verification initiated successfully, QR code and verification URI returned.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 qr:
+ *                   type: string
+ *                   format: base64
+ *                   description: Base64 encoded data for QR code.
+ *                 sessionId:
+ *                   type: string
+ *                 verificationUri:
+ *                   type: string
+ *                   description: URI of the verification.
+ *       400:
+ *         description: Error due to missing parameters or session reuse.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: fail
+ *                 reason:
+ *                   type: string
+ *       500:
+ *         description: Internal server error during verification process setup.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: fail
+ *                 reason:
+ *                   type: string
+ *                 sessionId:
+ *                   type: string
+ */
 export async function GET(req: NextRequest) {
     const url = req.nextUrl;
     const sessionId = url.searchParams.get('sessionId');

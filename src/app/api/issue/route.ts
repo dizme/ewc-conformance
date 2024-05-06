@@ -55,6 +55,74 @@ function changeCredentialOfferEndpoint(baseUrl: string, data: string) {
     return updatedUri;
 }
 
+
+/**
+ * @swagger
+ * /api/issue:
+ *   get:
+ *     summary: Retrieves credentials based on session ID and credential type
+ *     description: Returns QR code and URI for credential offer if valid; otherwise, returns error message.
+ *     tags:
+ *       - Issuance
+ *     parameters:
+ *       - in: query
+ *         name: sessionId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The session ID to check for credential issuance.
+ *       - in: query
+ *         name: credentialType
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The type of credential to issue.
+ *     responses:
+ *       200:
+ *         description: Credential offer information returned successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 qr:
+ *                   type: string
+ *                   format: base64
+ *                   description: Base64 encoded data for QR code.
+ *                 sessionId:
+ *                   type: string
+ *                 credentialOfferUri:
+ *                   type: string
+ *                   description: URI of the credential offer.
+ *       400:
+ *         description: Input validation errors or session issues.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: fail
+ *                 reason:
+ *                   type: string
+ *                 sessionId:
+ *                   type: string
+ *       500:
+ *         description: Internal server error while processing the credential issuance.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: fail
+ *                 reason:
+ *                   type: string
+ *                 sessionId:
+ *                   type: string
+ */
 export async function GET(req: NextRequest) {
     const url = req.nextUrl;
     const sessionId = url.searchParams.get('sessionId');

@@ -1,5 +1,5 @@
 import {VerificationState} from "@/types/VerificationState";
-import {updateStatus} from "@/app/verify/callback/updateStatus";
+import {updateStatus} from "@/app/api/verify/callback/updateStatus";
 
 
 async function SuccessPage({ params }: {params: {id: String}}) {
