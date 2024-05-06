@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db:
+    image: "postgres"
+    ports:
+      - "2345:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "mydb"
+  ewc-conformance:
+    build: .
+    container_name: ewc-conformance
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/mydb?schema=public

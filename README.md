@@ -4,7 +4,8 @@ Conformant Issuer and Verifier API according to [EWC RFC100: Interoperability Pr
 ](https://github.com/EWC-consortium/eudi-wallet-rfcs/blob/main/ewc-rfc100-interoperability-profile-towards-itb-v1.0.md)
 
 ## Getting Started
-Modify the `.env` file to reflect your configuration
+Modify the `.env` file to reflect your configuration.
+Be sure to set a valid `DATABASE_URL` for a PostreSQL database in `.env` file.
 
 Then, run the development server:
 
@@ -24,6 +25,26 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 > 
 > We suggest using [ngrok](https://ngrok.com/) for testing purposes.
 
-## Deploy notes
 
-Currently there is no documentation on deployment because of the usage of a local db for testing purposes. Next iteration we will provide a docker configuration to run the app with a suporting database.
+## Build using Dockerfile
+The repo provide a sample `Dockerfile` that allow to build the service.
+Be sure to set a valid `DATABASE_URL` for a PostreSQL database in `.env` file
+
+1. [Install Docker](https://docs.docker.com/get-docker/) on your machine.
+1. Build your container: `docker build -t ewc-conformance .`.
+1. Run your container: `docker run -p 3000:3000 ewc-conformance`.
+
+You can view your images created with `docker images`.
+
+## or `docker-compose.yaml`
+The repository also contains a complete docker-compose fil. It starts a PostgreSQL database and set the Next application to use it. 
+If you change the default values for postgres, just be sure to edit the env variable `DATABASE_URL` accordingly.
+
+To build the services execute
+```bash
+docker compose build
+```
+To start containers execute
+```bash
+docker compose up -d
+```
