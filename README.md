@@ -24,6 +24,17 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 > 
 > We suggest using [ngrok](https://ngrok.com/) for testing purposes.
 
-## Deploy notes
 
-Currently there is no documentation on deployment because of the usage of a local db for testing purposes. Next iteration we will provide a docker configuration to run the app with a suporting database.
+## Using Docker
+The repo provide a sample `Dockerfile` that allow to build the service.
+
+1. [Install Docker](https://docs.docker.com/get-docker/) on your machine.
+1. Build your container: `docker build -t ewc-conformance .`.
+1. Run your container: `docker run -p 3000:3000 ewc-conformance`.
+
+You can view your images created with `docker images`.
+
+### Deploy notes
+
+Currently there is partial support for deployment because of the usage of a local db for testing purposes.
+Next iteration we will provide a docker configuration to run the app with a suporting database.

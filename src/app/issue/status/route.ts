@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from "@/lib/prisma";
 
-export const config = {
-  runtime: 'experimental-edge',
-};
-
 export async function GET(req: NextRequest) {
   const url = req.nextUrl;
   const sessionId = url.searchParams.get('sessionId');
